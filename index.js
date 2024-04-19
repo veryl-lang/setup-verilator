@@ -1,6 +1,7 @@
 const path = require('path');
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
+const exec = require('@actions/exec');
 const { getDownloadObject } = require('./lib/utils');
 
 async function setup() {
@@ -18,6 +19,8 @@ async function setup() {
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
+
+    await exec.exec('sudo apt-get install -y ccache mold');
   } catch (e) {
     core.setFailed(e);
   }

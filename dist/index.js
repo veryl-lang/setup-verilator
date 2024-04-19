@@ -7,6 +7,7 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 const path = __nccwpck_require__(1017);
 const core = __nccwpck_require__(2186);
 const tc = __nccwpck_require__(7784);
+const exec = __nccwpck_require__(1514);
 const { getDownloadObject } = __nccwpck_require__(918);
 
 async function setup() {
@@ -24,6 +25,8 @@ async function setup() {
 
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
+
+    await exec.exec('sudo apt-get install -y ccache mold');
   } catch (e) {
     core.setFailed(e);
   }
