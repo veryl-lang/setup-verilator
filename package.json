@@ -1,5 +1,5 @@
 {
-  "name": "setup-veryl",
+  "name": "setup-verilator",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -10,11 +10,11 @@
     "all": "npm run lint && npm run prepare && npm run test"
   },
   "keywords": [],
-  "homepage": "https://github.com/veryl-lang/setup-veryl",
+  "homepage": "https://github.com/veryl-lang/setup-verilator",
   "license": "(MIT OR APACHE-2.0)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/veryl-lang/setup-veryl.git"
+    "url": "git+https://github.com/veryl-lang/setup-verilator.git"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",

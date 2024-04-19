@@ -1,12 +1,12 @@
-name: setup-veryl
-description: Setup veryl on GitHub Actions runners
+name: setup-verilator
+description: Setup verilator on GitHub Actions runners
 author: 'Naoya Hatta'
 branding:
   color: green
   icon: download
 inputs:
   version:
-    description: Version of Veryl to install
+    description: Version of Verilator to install
     required: false
     default: latest
 runs:
