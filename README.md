@@ -1,49 +1,32 @@
-# setup-veryl
+# setup-verilator
 
-[![Actions Status](https://github.com/veryl-lang/setup-veryl/workflows/Tests/badge.svg)](https://github.com/veryl-lang/setup-veryl/actions)
+[![Actions Status](https://github.com/veryl-lang/setup-verilator/workflows/Tests/badge.svg)](https://github.com/veryl-lang/setup-verilator/actions)
 
-This action downloads a prebuilt [Veryl](https://veryl-lang.org/) binary and adds it to the `PATH`.
+This action downloads a prebuilt [Verilator](https://github.com/verilator/verilator) binary and adds it to the `PATH`.
 
 ## Usage
 
-By default, this action downloads the latest version of Veryl.
+By default, this action downloads the latest version of Verilator.
+`ubuntu-22.04` is only supported.
 
 ```yaml
 name: Check
 on: [push, pull_request]
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
-    - uses: veryl-lang/setup-veryl@v1
-    - run: veryl check
+    - uses: veryl-lang/setup-verilator@v1
+    - run: verilator --version
 ```
 
 Version specification through `version` can be used.
 
 ```yaml
-    - uses: veryl-lang/setup-veryl@v1
+    - uses: veryl-lang/setup-verilator@v1
       with:
-        version: 0.7.2
-```
-
-### Publish documents through GitHub Pages
-
-```yaml
-name: Deploy
-on: [push]
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: veryl-lang/setup-veryl@v1
-    - run: veryl doc
-    - uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: doc
+        version: 5.024
 ```
 
 ## License
