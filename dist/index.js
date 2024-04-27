@@ -16,7 +16,7 @@ async function setup() {
     const version = core.getInput('version');
 
     // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject(version);
+    const download = await getDownloadObject(version);
     const pathToTarball = await tc.downloadTool(download.url);
 
     // Extract the tarball/zipball onto host runner
@@ -46,30 +46,25 @@ if (require.main === require.cache[eval('__filename')]) {
 
 const getos = __nccwpck_require__(6068);
 
-function getImage() {
-  let image = 'aaa';
-
-  getos(function (e, os) {
-    //if (e) {
-    //    throw new Error(e);
-    //}
-
-    console.log(os);
-    console.log(image);
-    if (os.os === 'linux') {
+async function getImage() {
+  return new Promise((resolve, reject) => {
+    getos(function (e, os) {
+      if (e) {
+        reject(e);
+      }
+      let image = 'aaa';
+      if (os.os === 'linux') {
         if (os.dist === 'Ubuntu') {
           image = `ubuntu-${ os.release }`;
         }
-    }
-    return console.log(image);
+      }
+      resolve(image);
+    });
   });
-
-  console.log(image);
-  return image;
 }
 
-function getDownloadObject(version) {
-  const image = getImage();
+async function getDownloadObject(version) {
+  const image = await getImage();
   console.log(image);
   const filename = `verilator-${ image }`;
   const binPath = 'bin';
