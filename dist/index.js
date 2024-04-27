@@ -9,14 +9,18 @@ const core = __nccwpck_require__(2186);
 const tc = __nccwpck_require__(7784);
 const exec = __nccwpck_require__(1514);
 const { getDownloadObject } = __nccwpck_require__(918);
+const { getImage } = __nccwpck_require__(918);
 
 async function setup() {
   try {
     // Get version of tool to be installed
     const version = core.getInput('version');
 
+    // Get OS image
+    const image = await getImage();
+
     // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = await getDownloadObject(version);
+    const download = getDownloadObject(version, image);
     const pathToTarball = await tc.downloadTool(download.url);
 
     // Extract the tarball/zipball onto host runner
@@ -26,7 +30,9 @@ async function setup() {
     // Expose the tool by adding it to the PATH
     core.addPath(path.join(pathToCLI, download.binPath));
 
-    await exec.exec('sudo apt-get install -y ccache mold');
+    if (image === 'ubuntu-22.04') {
+      await exec.exec('sudo apt-get install -y ccache mold');
+    }
   } catch (e) {
     core.setFailed(e);
   }
@@ -52,7 +58,7 @@ async function getImage() {
       if (e) {
         reject(e);
       }
-      let image = 'aaa';
+      let image = 'unknown';
       if (os.os === 'linux') {
         if (os.dist === 'Ubuntu') {
           image = `ubuntu-${ os.release }`;
@@ -63,9 +69,7 @@ async function getImage() {
   });
 }
 
-async function getDownloadObject(version) {
-  const image = await getImage();
-  console.log(image);
+function getDownloadObject(version, image) {
   const filename = `verilator-${ image }`;
   const binPath = 'bin';
   const versionPath = version === 'latest' ? 'latest/download' : `download/v${ version }`;
@@ -76,7 +80,7 @@ async function getDownloadObject(version) {
   };
 }
 
-module.exports = { getDownloadObject }
+module.exports = { getImage, getDownloadObject }
 
 
 /***/ }),
