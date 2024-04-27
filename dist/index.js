@@ -47,7 +47,8 @@ if (require.main === require.cache[eval('__filename')]) {
 const getos = __nccwpck_require__(6068);
 
 function getDownloadObject(version) {
-  const os = getos(function (e, os) { os });
+  var os;
+  getos(function (e, x) { os = x; });
   var filename = '';
   if (os.os === 'linux') {
     if (os.dist === 'Ubuntu') {
