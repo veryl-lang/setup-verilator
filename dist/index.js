@@ -61,7 +61,7 @@ function getImage() {
           image = `ubuntu-${ os.release }`;
         }
     }
-    console.log(image);
+    return console.log(image);
   });
 
   console.log(image);
