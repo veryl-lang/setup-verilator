@@ -55,13 +55,16 @@ function getImage() {
     //}
 
     console.log(os);
+    console.log(image);
     if (os.os === 'linux') {
         if (os.dist === 'Ubuntu') {
           image = `ubuntu-${ os.release }`;
         }
     }
+    console.log(image);
   });
 
+  console.log(image);
   return image;
 }
 
