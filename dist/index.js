@@ -47,7 +47,7 @@ if (require.main === require.cache[eval('__filename')]) {
 const getos = __nccwpck_require__(6068);
 
 function getImage() {
-  let image = '';
+  let image = 'aaa';
 
   getos(function (e, os) {
     //if (e) {
