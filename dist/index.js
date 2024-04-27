@@ -54,6 +54,7 @@ function getImage() {
         throw new Error(e);
     }
 
+    console.log(os);
     if (os.os === 'linux') {
         if (os.dist === 'Ubuntu') {
           image = `ubuntu-${ os.release }`;
@@ -66,6 +67,7 @@ function getImage() {
 
 function getDownloadObject(version) {
   const image = getImage();
+  console.log(image);
   const filename = `verilator-${ image }`;
   const binPath = 'bin';
   const versionPath = version === 'latest' ? 'latest/download' : `download/v${ version }`;
