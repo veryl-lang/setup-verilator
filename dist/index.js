@@ -46,15 +46,27 @@ if (require.main === require.cache[eval('__filename')]) {
 
 const getos = __nccwpck_require__(6068);
 
-function getDownloadObject(version) {
-  var os;
-  getos(function (e, x) { os = x; });
-  var filename = '';
-  if (os.os === 'linux') {
-    if (os.dist === 'Ubuntu') {
-      filename = `verilator-ubuntu-${ os.release }`;
+function getImage() {
+  let image = '';
+
+  getos(function (e, os) {
+    if (e) {
+        throw new Error(e);
     }
-  }
+
+    if (os.os === 'linux') {
+        if (os.dist === 'Ubuntu') {
+          image = `ubuntu-${ os.release }`;
+        }
+    }
+  });
+
+  return image;
+}
+
+function getDownloadObject(version) {
+  const image = getImage();
+  const filename = `verilator-${ image }`;
   const binPath = 'bin';
   const versionPath = version === 'latest' ? 'latest/download' : `download/v${ version }`;
   const url = `https://github.com/veryl-lang/verilator-package/releases/${ versionPath }/${ filename }.zip`;
