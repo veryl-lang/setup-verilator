@@ -19,19 +19,27 @@ async function setup() {
     // Get OS image
     const image = await getImage();
 
-    // Download the specific version of the tool, e.g. as a tarball/zipball
-    const download = getDownloadObject(version, image);
-    const pathToTarball = await tc.downloadTool(download.url);
+    if (image === 'macos') {
+      if (version === 'latest') {
+        await exec.exec('brew install verilator');
+      } else {
+        await exec.exec(`brew install verilator@${ version }`);
+      }
+    } else {
+      // Download the specific version of the tool, e.g. as a tarball/zipball
+      const download = getDownloadObject(version, image);
+      const pathToTarball = await tc.downloadTool(download.url);
 
-    // Extract the tarball/zipball onto host runner
-    const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
-    const pathToCLI = await extract(pathToTarball);
+      // Extract the tarball/zipball onto host runner
+      const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
+      const pathToCLI = await extract(pathToTarball);
 
-    // Expose the tool by adding it to the PATH
-    core.addPath(path.join(pathToCLI, download.binPath));
+      // Expose the tool by adding it to the PATH
+      core.addPath(path.join(pathToCLI, download.binPath));
 
-    if (image === 'ubuntu-22.04') {
-      await exec.exec('sudo apt-get install -y ccache mold');
+      if ((image === 'ubuntu-22.04') || (image === 'ubuntu-24.04')) {
+        await exec.exec('sudo apt-get install -y ccache mold');
+      }
     }
   } catch (e) {
     core.setFailed(e);
@@ -63,6 +71,8 @@ async function getImage() {
         if (os.dist === 'Ubuntu') {
           image = `ubuntu-${ os.release }`;
         }
+      } else if (os.os === 'darwin') {
+          image = 'macos';
       }
       resolve(image);
     });
