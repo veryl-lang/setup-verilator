@@ -19,11 +19,13 @@ async function setup() {
     // Get OS image
     const image = await getImage();
 
-    if (image === 'macos') {
+    if (image === 'unknown') {
+      core.setFailed('Unsupported platform');
+    } else if (image === 'macos') {
       if (version === 'latest') {
         await exec.exec('brew install verilator');
       } else {
-        await exec.exec(`brew install verilator@${ version }`);
+        core.setFailed('The latest version is only supported on macOS');
       }
     } else {
       // Download the specific version of the tool, e.g. as a tarball/zipball
