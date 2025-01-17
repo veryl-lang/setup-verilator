@@ -7,7 +7,12 @@ This action downloads a prebuilt [Verilator](https://github.com/verilator/verila
 ## Usage
 
 By default, this action downloads the latest version of Verilator.
-`ubuntu-22.04` is only supported.
+The supported platforms are below:
+
+* `ubuntu-24.04` / `ubuntu-latest`
+* `ubuntu-22.04`
+* `ubuntu-20.04`
+* `macos-latest`
 
 ```yaml
 name: Check
@@ -22,6 +27,7 @@ jobs:
 ```
 
 Version specification through `version` can be used.
+This feature is not supported on macOS.
 
 ```yaml
     - uses: veryl-lang/setup-verilator@v1
