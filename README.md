@@ -9,8 +9,8 @@ This action downloads a prebuilt [Verilator](https://github.com/verilator/verila
 By default, this action downloads the latest version of Verilator.
 The supported platforms are below:
 
-* `ubuntu-26.04`
-* `ubuntu-24.04` / `ubuntu-latest`
+* `ubuntu-26.04` / `ubuntu-latest`
+* `ubuntu-24.04`
 * `ubuntu-22.04`
 * `macos-latest`
 
