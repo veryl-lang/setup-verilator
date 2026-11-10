@@ -21,8 +21,8 @@ jobs:
   check:
     runs-on: ubuntu-26.04
     steps:
-    - uses: actions/checkout@v4
-    - uses: veryl-lang/setup-verilator@v1
+    - uses: actions/checkout@v7
+    - uses: veryl-lang/setup-verilator@v2
     - run: verilator --version
 ```
 
@@ -30,7 +30,7 @@ Version specification through `version` can be used.
 This feature is not supported on macOS.
 
 ```yaml
-    - uses: veryl-lang/setup-verilator@v1
+    - uses: veryl-lang/setup-verilator@v2
       with:
         version: 5.024
 ```
