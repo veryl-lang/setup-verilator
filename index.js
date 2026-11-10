@@ -28,7 +28,8 @@ async function setup() {
 
       // Extract the tarball/zipball onto host runner
       const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
-      const pathToCLI = await extract(pathToTarball);
+      const pathToExtracted = await extract(pathToTarball);
+      const pathToCLI = await tc.cacheDir(pathToExtracted, 'verilator', version);
 
       // Expose the tool by adding it to the PATH
       core.addPath(path.join(pathToCLI, download.binPath));
