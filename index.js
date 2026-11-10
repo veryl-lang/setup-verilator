@@ -34,7 +34,7 @@ async function setup() {
       // Expose the tool by adding it to the PATH
       core.addPath(path.join(pathToCLI, download.binPath));
 
-      if ((image === 'ubuntu-22.04') || (image === 'ubuntu-24.04')) {
+      if (['ubuntu-22.04', 'ubuntu-24.04', 'ubuntu-26.04'].includes(image)) {
         await exec.exec('sudo apt-get install -y ccache mold');
       }
     }
