@@ -9,9 +9,9 @@ This action downloads a prebuilt [Verilator](https://github.com/verilator/verila
 By default, this action downloads the latest version of Verilator.
 The supported platforms are below:
 
-* `ubuntu-24.04` / `ubuntu-latest`
+* `ubuntu-26.04` / `ubuntu-latest`
+* `ubuntu-24.04`
 * `ubuntu-22.04`
-* `ubuntu-20.04`
 * `macos-latest`
 
 ```yaml
@@ -19,7 +19,7 @@ name: Check
 on: [push, pull_request]
 jobs:
   check:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
     - uses: actions/checkout@v4
     - uses: veryl-lang/setup-verilator@v1

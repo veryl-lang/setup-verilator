@@ -40,7 +40,8 @@ async function setup() {
       // Expose the tool by adding it to the PATH
       core.addPath(path.join(pathToCLI, download.binPath));
 
-      if ((image === 'ubuntu-22.04') || (image === 'ubuntu-24.04')) {
+      // mold is not packaged before Ubuntu 22.04
+      if (parseFloat(image.replace('ubuntu-', '')) >= 22.04) {
         await exec.exec('sudo apt-get install -y ccache mold');
       }
     }
